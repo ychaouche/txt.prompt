@@ -8,15 +8,10 @@ TONES=("an authoritative" "a clinical" "a cold" "a confident" "a cynical" "an em
 
 STYLES=("an academic" "an administrative" "an analytical" "an argumentative" "a conversational" "a creative" "a critical" "a descriptive" "an epigrammatic" "an epistolary" "an expository" "an informative" "an instructive" "a journalistic" "a metaphorical" "a narrative" "a persuasive" "a poetic" "a satirical" "a technical" "a captivating" "a philosophical" "an anthropologic" "a psychological" "a thrilling" "a visual" "a tonic" "an energic" "a documentary" "a cinmeatic" "a marketing campaign")
 
-POSTFIXCHARACTER=("with ADHD" "from the 70ies" "book lover" ) 
-PREFIXCHARACTER=("japanese" "dictatorial" "degenerate" "witty" "shady" "kind" "wise" "tech savvy" )
-
 texttype=$(shuf -n1 -e "${TEXTTYPES[@]}")
 role=$(shuf -n1 -e "${ROLES[@]}")
 tone=$(shuf -n1 -e "${TONES[@]}")
 style=$(shuf -n1 -e "${STYLES[@]}")
-postcharacter=$(shuf -n1 -e "${POSTFIXCHARACTER[@]}")
-precharacter=$(shuf -n1 -e "${PREFIXCHARACTER[@]}")
 
 command="$1"
 output="You are $role. "
@@ -32,34 +27,9 @@ case $command in
 	output+="Write $texttype in which you $@, "
 esac
 
-# prompt="$command as if you were a $role"
-# if $precharacter
-# then
-#     prompt="$prompt $prechar"
-# fi
-# prompt="$prompt $role"
-# if $postcharacter
-# then
-#     prompt="$prompt $postchar"
-# fi
-
 output+="using $tone tone and $style style."
-echo "$output" | tee >(desktop.clipboard.set)
-
-#    .--,       .--,
-#   ( (  \.---./  ) )
-#    '.__/o   o\__.'
-#       {=  ^  =}
-#        >  -  <
-#  __.""`-------`"".__
-# /                   \
-# \      rapport      /
-# /                   \
-# \___________________/
-#      ___)( )(___
-#     (((__) (__)))
+echo "$output"
 
 
-# réredige le mail suivant en simplifiant au maximum pour mes collègues et responsables informaticiens.
 
 
