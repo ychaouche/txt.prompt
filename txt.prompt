@@ -1,3 +1,26 @@
+#!/bin/bash
+
+# array.pick
+# pick a random element from the array
+# array.pick ${A[@]} -> returns a random element from A
+
+function array.pick {  
+    echo "$(shuf -n1 -e "$@")"
+}
+
+# desktop.clipboard.set
+# sets the clipboard so you can paste directly into chatgpt
+# echo "hay world!" | desktop.clipboard.set
+
+function desktop.clipboard.set {
+	if (( $# > 0 ))
+	then
+	    xclip -selection clipboard <<< "$@"
+	else
+	    xclip -selection clipboard
+	fi
+}
+
 declare -a ROLES TONES STYLES
 
 TEXTTYPES=("an e-mail" "a book" "a sensational book" "a short book cover" "a book description" "a speech to the congress" "an elevator Pitch" "a business proposal document" "an ebay listing product description" "an amazon listing product description" "a linkedin post" "a reddit post" "a witty reddit comment" "an attractive landing page" "a lead magnet document" "a selling letter" "a formal letter" "a letter to a friend" "an open letter to the public" "a short essay" "a long discourse" "lyrics for a song" "a short quote" "a memorable personal anecdote" "a documentary" "a haiku" "a public service announcement" "a rap" )
