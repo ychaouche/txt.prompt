@@ -1,74 +1,119 @@
-#!/bin/bash
-
-# array.pick
-# pick a random element from the array
-# array.pick ${A[@]} -> returns a random element from A
-
-function array.pick {  
-    echo "$(shuf -n1 -e "$@")"
-}
-
-# desktop.clipboard.set
-# sets the clipboard so you can paste directly into chatgpt
-# echo "hay world!" | desktop.clipboard.set
-
-function desktop.clipboard.set {
-	if (( $# > 0 ))
-	then
-	    xclip -selection clipboard <<< "$@"
-	else
-	    xclip -selection clipboard
-	fi
-}
-
 declare -a ROLES TONES STYLES
 
 TEXTTYPES=("an e-mail" "a book" "a sensational book" "a short book cover" "a book description" "a speech to the congress" "an elevator Pitch" "a business proposal document" "an ebay listing product description" "an amazon listing product description" "a linkedin post" "a reddit post" "a witty reddit comment" "an attractive landing page" "a lead magnet document" "a selling letter" "a formal letter" "a letter to a friend" "an open letter to the public" "a short essay" "a long discourse" "lyrics for a song" "a short quote" "a memorable personal anecdote" "a documentary" "a haiku" "a public service announcement" "a rap" )
 
-ROLES=("an intern" "a teacher" "a business partner" "an Amazon Engineer" "a Yahoo! engineer" "a Google engineer" "a critic" "a friend" "an ennemy" "a coach" "a counseler" "an advisor" "a parent" "an experienced engineer" "a military strategist" "a Fortune 500 top exectuive" "a CEO of an important business" "a business advisor" "a drunk sysadmin" "a Microsoft MVP" "a corrupt politician" "a reknown crook" "a praised book author" "an angel investor" "an army general" "a royal advisor" "a seasoned chess player" "a seasoned poker player" "a top athlete" "a business analyst" "a member of the royal society" "an Ambassador" "a diplomat" "a genius" "an astrophysicist" "a social scientist" "a psychologist" "a scientist" "a researcher" "an artist" "an army veteran" "a linux enthusiast" "Richard Stallman" "a Debian zealot" "Eric Seymour Raymond" "a lawyer" "a doctor" "a billionnaire" "Elon Musk" "a person of great power" "Mao Ze Doung" "Ho Chin Minh" "a prolific author" "a private investigator" "a secret service agent" "an economic expert" "a marxist fundamentalist" "a financial Expert" "a business strategist" "a manager" "the CEO of a Fortune 500 company" "a big law firm attorney" "a prince" "a king" "a linux expert" "a cybersecurity expert" "a reknown hacker" "a great historian" "a muslim polymath from the middle ages" "a chess master" "an arab leader from the 70'" "an 20th century philosopher" "a post-modernist" "a great modern mathematician" "a budhist monk" "a great revolutionary leader" "Fidel Castro" "Colonel Muammar Gaddafi" "a free and open source software expert" "a 10x developer" "a great leader from an old civilisation" "a roman emperor" "an efficiency expert" "a SCRUM Master" "a conservative republican" "a progressive democrate" "a based internet celibrity" "Andrew Tate" "a rapper" "a journalist" "Prince (the artist)" "a genetician" "a geopolitician" "an Iranian Shah" "a young algerian" "a young egyptian" "a member of the young turks" "an old web developer" "a nostalgic armenian" "superman" "batman" "Vegeta" "Confucius" "a confucianist" "a taoist" "a stoicist" "a greek philosopher" "a roman army general" "japanese otaku" "sumo wrestler" "Michael Moor" )
+ROLES=("an intern" "a teacher" "a business partner" "an Amazon Engineer" "a Yahoo! engineer" "a Google engineer" "a critic" "a friend" "an ennemy" "a coach" "a counseler" "an advisor" "a parent" "an experienced engineer" "a military strategist" "a Fortune 500 top exectuive" "a CEO of an important business" "a business advisor" "a drunk sysadmin" "a Microsoft MVP" "a corrupt politician" "a reknown crook" "a praised book author" "an angel investor" "an army general" "a royal advisor" "a seasoned chess player" "a seasoned poker player" "a top athlete" "a business analyst" "a member of the royal society" "an Ambassador" "a diplomat" "a genius" "an astrophysicist" "a social scientist" "a psychologist" "a scientist" "a researcher" "an artist" "an army veteran" "a linux enthusiast" "Richard Stallman" "a Debian zealot" "Eric Seymour Raymond" "a lawyer" "a doctor" "a billionnaire" "Elon Musk" "a person of great power" "Mao Ze Doung" "Ho Chin Minh" "a prolific author" "a private investigator" "a secret service agent" "an economic expert" "a marxist fundamentalist" "a financial Expert" "a business strategist" "a manager" "the CEO of a Fortune 500 company" "a big law firm attorney" "a prince" "a king" "a linux expert" "a cybersecurity expert" "a reknown hacker" "a great historian" "a muslim polymath from the middle ages" "a modern muslim sunni scholar" "a 20th century muslim scholar from the hanafi school" "a formula 1 grand prize winner" "a chess master" "an arab leader from the 70'" "an 20th century philosopher" "a post-modernist" "a great modern mathematician" "a budhist monk" "a great revolutionary leader" "Fidel Castro" "Colonel Muammar Gaddafi" "a free and open source software expert" "a 10x developer" "a great leader from an old civilisation" "a roman emperor" "an efficiency expert" "a SCRUM Master" "a conservative republican" "a progressive democrat" "a based internet celibrity" "Andrew Tate" "a rapper" "a journalist" "Prince (the artist)" "a genetician" "a geopolitician" "an Iranian Shah" "a young algerian" "a young egyptian" "a member of the young turks" "an old web developer" "a nostalgic armenian" "superman" "batman" "Vegeta" "Confucius" "a confucianist" "a taoist" "a stoicist" "a greek philosopher" "a roman army general" "japanese otaku" "sumo wrestler" "Michael Moor"  "a secret service agent from MI6" "a cartoonist" "a great architect from the renaissance" "an agile practitionner" "a fraudster" "a librarian" "a vegetarian" "a fanatic donald trump supporter" "Plato" "Cicero" "Michael Jordan" "the richest man on the planet" "a baker" "a banker" "an entrepreneur from hong kong who is an ultra liberal who believes in wild, unleashed capitalism in its most aggressive form" "a sudanese teacher" "a lebanese female singer" "Tintin" "Bill Cosby" "a middle-class worker from the 17th century" "Adam Smith" "Goeth" "Pablo Escobar" "Will Smith" "Tim Cook" "Steve Jobs" "Leonardo Davinci" "Gustave Lebon" "Saddam Hussein" "an indian spice trader" "a rich baron in old France" "an angry parent" "a radical member of the french CGT uninon" "poor artist" "a lucky guy" "a goofy politician" "Tim burton" "a muslim calif from the middle ages" "a sultan of andalusia" "a famous soccer player" "a talented spy" "a rude hollywood movie director" "a friendly traveler" "a mysetic" "a beloved father" "a wise grand father")
 
 TONES=("an authoritative" "a clinical" "a cold" "a confident" "a cynical" "an emotional" "a diplomatic" "a provocative" "an empathetic" "a firm" "a formal" "a friendly" "a humorous" "an informal" "an ironic" "a lighthearted" "an optimistic" "a pessimistic" "a playful" "a sarcastic" "a serious" "a spartan" "a sympathetic" "a tentative" "a warm" "an assertive" "a soft" "a melodic")
 
 STYLES=("an academic" "an administrative" "an analytical" "an argumentative" "a conversational" "a creative" "a critical" "a descriptive" "an epigrammatic" "an epistolary" "an expository" "an informative" "an instructive" "a journalistic" "a metaphorical" "a narrative" "a persuasive" "a poetic" "a satirical" "a technical" "a captivating" "a philosophical" "an anthropologic" "a psychological" "a thrilling" "a visual" "a tonic" "an energic" "a documentary" "a cinmeatic" "a marketing campaign")
 
+POSTFIXCHARACTER=("with ADHD" "from the 70ies" "book lover" ) 
+PREFIXCHARACTER=("japanese" "dictatorial" "degenerate" "witty" "shady" "kind" "wise" "tech savvy" )
+POSTTEXT=("use analogies from your trade")
+
+
+# declare -A johny
+# character.create johny
+# echo ${johny["role"]
+function character.create {
+
+    # character is the name of an array
+    # so we need to declare a reference variable here
+    # to access it via indirect referencing
+    
+    local -n character="$1"
+    
+    character["role"]="$(array.pick ROLES)"
+    character["tone"]="$(array.pick TONES)"
+    character["style"]="$(array.pick STYLES)"        
+    
+}
+
+
 texttype=$(shuf -n1 -e "${TEXTTYPES[@]}")
 role=$(shuf -n1 -e "${ROLES[@]}")
 tone=$(shuf -n1 -e "${TONES[@]}")
 style=$(shuf -n1 -e "${STYLES[@]}")
+postcharacter=$(shuf -n1 -e "${POSTFIXCHARACTER[@]}")
+precharacter=$(shuf -n1 -e "${PREFIXCHARACTER[@]}")
+
+
+
 
 
 command="$1"
-shift 1
-output="You are $role. "
+output="You are $role.\n"
 
-case $command in
+case "$command" in
     rephrase|rewrite)
 	output+="Rewrite the following text as $texttype, "
 	output+="using $tone tone and $style style."	
 	;;
     explain)
-	output+="Write $texttype explaining $@, "
+	shift #(remove explain)
+	output+="Write $texttype explaining $@ "
 	output+="using $tone tone and $style style."	
 	;;
-    debate)
+    debate|dialog*)
 	role1="$role"
-	tone1="$(array.pick "${TONES[@]}")"
-	style1="$(array.pick "${STYLES[@]}")"
+	tone1="$(array.pick  TONES)"
+	style1="$(array.pick STYLES)"
 	
-	role2="$(array.pick "${ROLES[@]}")"
-	tone2="$(array.pick "${TONES[@]}")"
-	style2="$(array.pick "${STYLES[@]}")"
-	
-	output="Imagine a dialog between $role1 and $role2 debating $@.\n"
-	output+="The first character is speaking in $tone1 tone and a $style1 style.\n"
-	output+="The second character is speaking in $tone2 tone and a $style2 style."	
+	role2="$(array.pick  ROLES)"
+	tone2="$(array.pick  TONES)"
+	style2="$(array.pick STYLES)"
+	output="Imagine $role1 and $role2 in a $@.\n"
+	output+="The first character is speaking in $tone1 tone and $style1 style.\n"
+	output+="The second character is speaking in $tone2 tone and $style2 style."	
 	;;
+    answer)
+	output="Answer like $role, using $tone tone and $style style."
+	;;
+
+    analy[sz]e)
+	output+="Analyze the technical and conceptual accuracy of the following text.\n"
+	output+="highlighting and explaining any inaccuracies, inconsistencies or ambiguities,\n"
+	output+="using $tone tone and $style style."
+	;;
+
+    interview)
+	character_number="${2:-5}"
+	output="Imagine conducting an interview with the following persons:\n"
+	for x in $(seq "${character_number}")
+	do
+	    # create a variable that holds that name
+	    character_current="character$x"
+	    
+	    # create arrays named character1, character2, character3...
+	    declare -A "$character_current"
+	    
+	    
+	    character.create "$character_current"
+	    characters+=("$character_current")
+	done
+	
+	for ((i=0; i<character_number;i++))
+	do
+	    character_ref=${characters[$i]}
+	    declare -n character_current="${character_ref}"
+	    role="${character_current["role"]}"
+	    style="${character_current["style"]}"
+	    tone="${character_current["tone"]}"
+	    # add indentation
+	    ((i == $(( character_number - 1)))) && output+="  and " || output+="  "
+	    output+="$role, speaking in $tone tone and $style style;\n"
+	done
+
+	# # shift "interview N" to get to the subject of the interview
+	# shift 2
+	
+	# output+="\n"
+	;;
+    
     *)
-	output+="Write $texttype in which you $@, "
+	output+="Write $texttype in which you $@, using $tone tone and $style style"
 esac
 
 
-echo -e "$output" | tee >(desktop.clipboard.set) # comment the pipe if that's not what you want
-
-
-
+echo -e "$output" | tee >(desktop.clipboard.set)
