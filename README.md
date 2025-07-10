@@ -12,6 +12,13 @@ $
 ```
 
 ```
+$ txt.prompt explain the tv series sopranos
+You are a free and open source software expert. Write lyrics for a song explaining the tv series sopranos, using a formal tone and an epistolary style.
+$
+```
+
+
+```
 $ txt.prompt debate about wether industrial automation is harmful to employment or not
 Imagine a dialog between a coach and a journalist debating about wether industrial automation is harmful to employment or not.
 The first character is speaking in an authoritative tone and a an informative style.
@@ -23,11 +30,22 @@ $ txt.prompt summarise the devils rejects movie
 You are a reknown hacker. Write a lead magnet document in which you summarise the devils rejects movie, using a playful tone and an argumentative style.
 $
 ```
+
 ```
-$ txt.prompt explain the tv series sopranos
-You are a free and open source software expert. Write lyrics for a song explaining the tv series sopranos, using a formal tone and an epistolary style.
+$ txt.prompt answer
+Answer like a top athlete, using a friendly tone and an academic style.
 $
 ```
+
+```
+$ txt.prompt analyse
+You are Prince (the artist).
+Analyze the technical and conceptual accuracy of the following text.
+highlighting and explaining any inaccuracies, inconsistencies or ambiguities,
+using a serious tone and an informative style.
+$
+```
+
 
 ```
 $ txt.prompt interview 5
@@ -39,3 +57,37 @@ Imagine conducting an interview with the following persons:
   and an advisor, speaking in an optimistic tone and a journalistic style;
 $
 ```
+
+```
+$ txt.prompt movie "lost in translation"
+Analyse the movie lost in translation from the perspective of a business analyst,
+using a warm tone and a psychological style.
+Mention your favorite scene.
+Try to find different levels of meaning (litteral, symbolic and allegorical) to the movie title as well as its different possible interpretations.
+$
+```
+
+```
+$ txt.prompt music "never gonna give you up"
+You are Donlad Trump.
+Write a sensational book in which you talk about never gonna give you up.
+analyze it musically: the melody, the rhythm, the lyrics, the chords, the progression, the composition, the arrangements, the mixing and mastering etc. Analyze every aspect of it.
+Classify it by genre.Finish by suggesting similar songs.
+Use an assertive tone and an epistolary style.
+$
+```
+
+
+```
+$ txt.prompt tutor
+You are Colonel Muammar Gaddafi.
+I am going to ask you some questions.
+Give sufficiently short answers to make it fast to read,
+using a serious tone and an expository style.
+Draw parallels from your own experience.
+I'll ask more questions if it's still unclear,
+and you'd still answer with sufficiently short answers,
+until I get the picture.
+$
+```
+
