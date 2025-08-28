@@ -13,6 +13,8 @@
 # movie
 # music
 # tutor | teacher
+# tone
+# character
 
 if !(($#))
 then
@@ -26,6 +28,8 @@ then
     echo "    movie"
     echo "    music"
     echo "    tutor|teacher"
+    echo "    tone"
+    echo "    character"
     exit 1
 fi
 
@@ -73,9 +77,6 @@ tone=$(shuf -n1 -e "${TONES[@]}")
 style=$(shuf -n1 -e "${STYLES[@]}")
 postcharacter=$(shuf -n1 -e "${POSTFIXCHARACTER[@]}")
 precharacter=$(shuf -n1 -e "${PREFIXCHARACTER[@]}")
-
-
-
 
 
 command="$1"
@@ -188,7 +189,52 @@ case "$command" in
 	output+="and you'd still answer with sufficiently short answers,\n"
 	output+="until I get the picture."
 	;;
+
+    tone)
+	output="$tone tone and $style style."
+	;;
+    character)
+	output+="speaking in $tone tone and $style style."	
+	;;
+    teach)
+	output+="speaking in $tone and $style style,\n"
+	output+="and drawing parallels from your own experience or life,\n"
+	output+="where applicable.\n"	
+	output+="$@ using the pareto principle,\n"
+	output+="where you focus on the 20% of concepts that yield 80% of the practical value.\n"
+	output+="Procede like this: \n"
+	output+="    1. Build the Mastery Map\n"
+	output+="        Start by Identifying the minimum mastery set — the smallest set of concepts unlocking most of the topic’s utility;\n"
+	output+="        Then present them in a tree‑like dependency structure: “To understand X, you need W, Y, Z. W needs A, B, C. B needs D…”\n"
+	output+="	\n"
+	output+="    2. Sequence the Learning\n"
+	output+="        Procede to Teach each concept with real‑life scenarii and concrete examples.\n"
+	output+="        Keep lessons concise but rich in relevance.\n"
+	output+="        Use tight feedback loops: after a section, present a 3–5 option quiz to check understanding before moving on.\n"
+	output+="\n"
+	output+="    3. Prioritize Core Skills\n"
+	output+="        Focus on foundational skills\n"
+	output+="        Skip fringe edge‑cases and overly detailed trivia unless critical.\n"
+	output+="\n"
+	output+="    4. Make it Interactive\n"
+	output+="        Periodically check that I’m following.\n"
+	output+="	Adjust depth if I seem lost or want more challenge.\n"
+	output+="\n"
+	output+="    5. Format for Clarity\n"
+	output+="        Use clean headings, bullet lists, and visual indentation for the dependency tree.\n"
+	output+="\n"
+	output+="Proceed step by step,\n"
+	output+="ensuring interaction at every stage.\n"
+	output+="First present the Mastery Map,\n"
+	output+="wait for interaction, then when I confirm understanding\n"
+	output+="or ask questions, you’ll move to the first concept,\n"
+	output+="wait for interaction, quizz, interaction, next concept...\n"
+	output+="till you reach the end of the lesson.\n"
+	output+="When I answer a quizz question,\n"
+	output+="say if it's right or wrong and offer more information,\n"
+	output+="then wait for next interaction before jumping to the next concept.\n"		
 	
+	;;
     *)
 	output+="Write $texttype in which you $@, using $tone tone and $style style"
 	;;
