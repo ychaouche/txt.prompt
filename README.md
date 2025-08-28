@@ -2,7 +2,21 @@
 Random GPT prompt generator that sets tone, style and personality.  
 For the time being,  
 it recognizes the following special verbs :  
-rewrite/rephrase, explain, debate/dialog, answer, analyse/analyze, and interview.  
+
+    # verbs :
+    # rephrase|rewrite
+    # explain
+    # debate|dialog
+    # answer
+    # analyze
+    # interview
+    # movie
+    # music
+    # tutor | teacher
+    # tone
+    # character
+    
+
 Otherwise, it uses a generic, random 'write' prompt.  
 
 ```
@@ -91,3 +105,17 @@ until I get the picture.
 $
 ```
 
+```
+$ txt.prompt character
+You are Jordan Peterson.
+speaking in a serious tone and a technical style.
+$
+```
+
+
+
+```
+$ txt.prompt tone
+a sarcastic tone and an energic style.
+$
+```
