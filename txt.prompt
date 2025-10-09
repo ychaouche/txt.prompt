@@ -3,22 +3,10 @@
 # some prompt ideas:
 # use "explore parallels" with each role.
 
-# words :
-# rephrase|rewrite
-# explain
-# debate|dialog
-# answer
-# analyze
-# interview
-# movie
-# music
-# tutor | teacher
-# tone
-# character
-
 if !(($#))
 then
     echo "commands: "
+    echo ""
     echo "    rephrase|rewrite"
     echo "    explain"
     echo "    debate|dialog"
@@ -30,6 +18,11 @@ then
     echo "    tutor|teacher"
     echo "    tone"
     echo "    character"
+    echo "    teach"
+    echo "    country"
+    echo "    wikipedia"
+    echo "    coauthor"
+    echo ""
     exit 1
 fi
 
@@ -71,10 +64,15 @@ function character.create {
 }
 
 
+
+
+
+
 texttype=$(shuf -n1 -e "${TEXTTYPES[@]}")
 role=$(shuf -n1 -e "${ROLES[@]}")
 tone=$(shuf -n1 -e "${TONES[@]}")
 style=$(shuf -n1 -e "${STYLES[@]}")
+styleandtone="using $tone tone and $style style."
 postcharacter=$(shuf -n1 -e "${POSTFIXCHARACTER[@]}")
 precharacter=$(shuf -n1 -e "${PREFIXCHARACTER[@]}")
 
@@ -84,13 +82,14 @@ output="You are $role.\n"
 
 case "$command" in
     rephrase|rewrite)
-	output+="Rewrite the following text as $texttype, "
-	output+="using $tone tone and $style style."	
+	output+="Rewrite the following text as $texttype,\n"
+	output+="$styleandtone\n"
 	;;
     explain)
 	shift #(remove explain)
-	output+="Write $texttype explaining $@ "
-	output+="using $tone tone and $style style."	
+	output+="Write $texttype explaining $@\n,"
+	output+="$styleandtone\n"	
+
 	;;
     debate|dialog*)
 	role1="$role"
@@ -105,13 +104,13 @@ case "$command" in
 	output+="The second character is speaking in $tone2 tone and $style2 style."	
 	;;
     answer)
-	output="Answer like $role, using $tone tone and $style style."
+	output="Answer like $role, $styleandtone\n"
 	;;
 
     analy[sz]e)
 	output+="Analyze the technical and conceptual accuracy of the following text.\n"
 	output+="highlighting and explaining any inaccuracies, inconsistencies or ambiguities,\n"
-	output+="using $tone tone and $style style."
+	output+="$styleandtone\n"	
 	;;
 
     interview)
@@ -164,7 +163,7 @@ case "$command" in
 	# skip "movie" command
 	shift 1
 	output="Analyse the movie $1 from the perspective of $role,\n"
-	output+="using $tone tone and $style style.\n"
+	output+="$styleandtone\n"	
 	output+="Mention your favorite scene.\n"
 	output+="Try to find different levels of meaning (litteral, symbolic and allegorical) to the movie title as well as its different possible interpretations."
 	
@@ -183,7 +182,7 @@ case "$command" in
     tutor|teacher)
 	output+="I am going to ask you some questions.\n"
 	output+="Give sufficiently short answers to make it fast to read,\n"
-	output+="using $tone tone and $style style.\n"
+	output+="$styleandtone\n"	
 	output+="Draw parallels from your own experience.\n"
 	output+="I'll ask more questions if it's still unclear,\n"
 	output+="and you'd still answer with sufficiently short answers,\n"
@@ -226,17 +225,135 @@ case "$command" in
 	output+="Proceed step by step,\n"
 	output+="ensuring interaction at every stage.\n"
 	output+="First present the Mastery Map,\n"
-	output+="wait for interaction, then when I confirm understanding\n"
-	output+="or ask questions, you’ll move to the first concept,\n"
-	output+="wait for interaction, quizz, interaction, next concept...\n"
-	output+="till you reach the end of the lesson.\n"
+	output+="wait for interaction. When I confirm understanding\n"
+	output+="you’ll move to the first concept,\n"
+	output+="unless I ask questions,"
+	output+="then ou should answer them first.\n"
+	output+="\n"
+	output+="when you finish a concept,\n"
+	output+="prepare a quizz to check my understanding,\n"
+	output+="wait for interaction, then move to next concept...\n"
+	output+="repet till you reach the end of the lesson.\n"
+	output+="\n"
 	output+="When I answer a quizz question,\n"
-	output+="say if it's right or wrong and offer more information,\n"
-	output+="then wait for next interaction before jumping to the next concept.\n"		
-	
+	output+="offer feedback and supplementary information,\n"
+	output+="then wait for next interaction before jumping to the next concept.\n"
 	;;
+
+    country)
+	shift 1 # get rid of "country"
+	output="I want to discover "$@",\n"
+	output+="a country I'm unfamiliar with. \n"
+	output+="Provide an overview of this country, \n"
+	output+="including, but not limited to, the following: \n"
+	output+="1. Geography, population, capital, languages, religions, ethnicities, endemic species, characteristic traits of the country, political regime, main historical events.\n"
+	output+="2. unique aspects of its culture (traditions, festivals, cuisine, art, music)\n"
+	output+="3. 3 to 5 iconic or lesser-known tourist destinations to visit, with a short description of their significance. \n"
+	output+="4. Daily Life, lifestyle, social customs, social norms, uncommon practices.\n"
+	output+="5. Surprising facts and anecdotes An anecdote or little-known fact that makes this country unique. \n"
+	output+="\n"
+	output+="Write a whole page (400 words) for each of these points,\n"
+	output+="that is:\n"
+	output+="one page about geography, population, capital etc.\n"
+	output+="one page about culture, traditions, festivals etc.\n"
+	output+="and so on for the rest.\n"
+	output+="\n"	
+	output+="write as $role, $styleandtone\n"
+	;;
+
+    wikipedia)
+	shift 1 # get rid of wikipedia
+	output="Task\n\n    $output"
+	output+="    with an expertise in clear and accessible writing.\n"	
+	output+="    Rewrite the following Wikipedia article [$1] by simplifying it\n" 
+	output+="    and making it more readable for a general audience\n"
+	output+="    (like a student or curious reader without prior expertise). \n"
+	output+="\n"		
+	output+="Goal\n"
+	output+="\n"	
+	output+="    The goal is to make it easy to understand, \n"
+	output+="    avoiding excessive technical jargon (explain complex terms in simple words if necessary), \n"
+	output+="    correcting redundancies or inconsistencies due to multiple authors, \n"
+	output+="    and structuring the text in a logical and engaging way.\n"
+	output+="    ensuring a smooth reading experience.\n"	
+	output+="\n"
+	output+="Strict rules\n"
+	output+="\n"	
+	output+="    - Keep all important factual information and truths from the original;\n"
+	output+="      Do not add inaccurate text,\n"
+	output+="      do not remove anything essential.\n"
+	output+="    - Use simple language;\n"
+	output+="    - keep sentences short, max 25 words;\n"
+	output+="    - For enumerations, timelines, or comparisons, use tables for clarity.\n"	
+	output+="    - Structure the article as follows:\n"
+	output+="\n"
+	output+="        - **TOC**: the table of contents of the generated text, as a numbered list, include subheaders.\n"	
+	output+="        - **Summary**: A one page summary (400 words) that captures the essentials.\n"
+	output+="        - **Main sections**: Divide into logical sections with clear, numbered titles\n"
+	output+="          sections can be based on the original or reorganized if needed for natural flow.\n"
+	output+="          Use subheadings when deemed necessary.\n"
+	output+="\n"
+	output+="        - **Unexplored questions: find topics or questions that should be answered by the article but are not (max 7)\n"
+	output+="          for example: \"Japan saw short success due to local rivals.\"\n"
+	output+="          an unexplored question would be: what rivals? (company or product names)\n"
+	output+="\n"	
+	output+="        - **References**: mention only key sources urls in a numbered list, 7 max.\n"
+	output+="        - **Explore**: mention connexe articles (7 max) in a numbered list\n"
+	output+="\n";
+	output+="Length\n"
+	output+="\n"	
+	output+="    Aim for 60-70% of the original length,\n"	
+	output+="    condensing without losing the essence,\n"
+	output+="\n"	
+	output+="Mini-Quizz\n"
+	output+="\n"			
+	output+="    Add a mini-quizz at the end, giving both questions and answers (max 7).\n"
+	output+="    For each question suggest 3 answers then give the right answer.\n"
+	output+="    The quizz must be interactive: ask the question, suggest answers, wait for my response.\n"
+	output+="    Comment and interact with my answer, then ask for confirmation before moving to the next question\n"
+	output+="\n"
+	;;
+
+
+    coauthor)
+	output+="speaking in $tone tone and $style style.\n"		
+	output+="You are hired as an expert co-writer\n"
+	output+="specializing in explanatory, step-by-step narratives\n"
+	output+="on any topic the user introduces\n"
+	output+="(e.g., processes, stories, or concepts). \n"
+	output+="\n"
+	output+="We will collaborate sentence by sentence: \n"
+	output+="I will start a sentence or provide a partial one, \n"
+	output+="and you will complete it naturally, \n"
+	output+="then add 1-3 short follow-up sentences\n"
+	output+="to advance the explanation or story\n"
+	output+="in a logical, engaging way.\n"
+	output+="\n"
+	output+="Keep all sentences concise\n"
+	output+="(under 20 words each)\n"
+	output+="and focused on clarity.\n"
+	output+="After your completions, always wait for my next input.\n"
+	output+="\n"
+	output+="If my (partial) sentence is ambiguous \n"
+	output+="(e.g., could lead to multiple directions),\n"
+	output+="ask for clarification: Did you mean [option 1],\n"
+	output+="or [option 2]?\n"
+	output+="Example interaction on the topic of making butter:\n"
+	output+="Me: The milk is used to...\n"
+	output+="You:...create butter. Whole milk is churned until it separates into buttermilk and butterfat. \n"
+	output+="The butterfat clumps together into solid bits,\n"
+	output+="which are then kneaded\n"
+	output+="until smooth and pliable\n"
+	output+="and optionally salted.\n"
+	output+="\n"
+	output+="You must be critic at the same time\n"
+	output+="and correct any inaccuracies in my input.\n"
+	output+="if you detect one, you must tell me about it,\n"
+	output+="then offer correction\n"
+	;;
+	
     *)
-	output+="Write $texttype in which you $@, using $tone tone and $style style"
+	output+="Write $texttype in which you $@,\n $styleandtone\n"
 	;;
 esac
 
