@@ -1,9 +1,11 @@
-#!/bin/bash
+#!/bin/bash -i
+
+# we need wpmg.pick
 
 # some prompt ideas:
 # use "explore parallels" with each role.
 
-if !(($#))
+if ! (($#))
 then
     echo "commands: "
     echo ""
@@ -14,7 +16,9 @@ then
     echo "    analyze"
     echo "    interview"
     echo "    movie"
-    echo "    music"
+    echo "    analyze-song"
+    echo "    suggest-song"
+    echo "    suggest-genre"            
     echo "    tutor|teacher"
     echo "    tone"
     echo "    character"
@@ -27,6 +31,7 @@ then
 fi
 
 
+
 # array.pick
 source ~/.lib/array.sh
 
@@ -35,7 +40,7 @@ declare -a ROLES TONES STYLES
 
 TEXTTYPES=("an e-mail" "a book" "a sensational book" "a short book cover" "a book description" "a speech to the congress" "an elevator Pitch" "a business proposal document" "an ebay listing product description" "an amazon listing product description" "a linkedin post" "a reddit post" "a witty reddit comment" "an attractive landing page" "a lead magnet document" "a selling letter" "a formal letter" "a letter to a friend" "an open letter to the public" "a short essay" "a long discourse" "lyrics for a song" "a short quote" "a memorable personal anecdote" "a documentary" "a haiku" "a public service announcement" "a rap" )
 
-ROLES=("an intern" "a teacher" "a business partner" "an Amazon Engineer" "a Yahoo! engineer" "a Google engineer" "a critic" "a friend" "an ennemy" "a coach" "a counseler" "an advisor" "a parent" "an experienced engineer" "a military strategist" "a Fortune 500 top exectuive" "a CEO of an important business" "a business advisor" "a drunk sysadmin" "a Microsoft MVP" "a corrupt politician" "a renown crook" "a praised book author" "an angel investor" "an army general" "a royal advisor" "a seasoned chess player" "a seasoned poker player" "a top athlete" "a business analyst" "a member of the royal society" "an Ambassador" "a diplomat" "a genius" "an astrophysicist" "a social scientist" "a psychologist" "a scientist" "a researcher" "an artist" "an army veteran" "a linux enthusiast" "Richard Stallman" "a Debian zealot" "Eric Seymour Raymond" "a lawyer" "a doctor" "a billionnaire" "Elon Musk" "a person of great power" "Mao Ze Doung" "Ho Chin Minh" "a prolific author" "a private investigator" "a secret service agent" "an economic expert" "a marxist fundamentalist" "a financial Expert" "a business strategist" "a manager" "the CEO of a Fortune 500 company" "a big law firm attorney" "a prince" "a king" "a linux expert" "a cybersecurity expert" "a renown hacker" "a great historian" "a muslim polymath from the middle ages" "a modern muslim sunni scholar" "a 20th century muslim scholar from the hanafi school" "a formula 1 grand prize winner" "a chess master" "an arab leader from the 70'" "an 20th century philosopher" "a post-modernist" "a great modern mathematician" "a budhist monk" "a great revolutionary leader" "Fidel Castro" "Colonel Muammar Gaddafi" "a free and open source software expert" "a 10x developer" "a great leader from an old civilisation" "a roman emperor" "an efficiency expert" "a SCRUM Master" "a conservative republican" "a progressive democrat" "a based internet celibrity" "Andrew Tate" "a rapper" "a journalist" "Prince (the artist)" "a genetician" "a geopolitician" "an Iranian Shah" "a young algerian" "a young egyptian" "a member of the young turks" "an old web developer" "a nostalgic armenian" "superman" "batman" "Vegeta" "Confucius" "a confucianist" "a taoist" "a stoicist" "a greek philosopher" "a roman army general" "a japanese otaku" "a sumo wrestler" "Michael Moor"  "a secret service agent from MI6" "a cartoonist" "a great architect from the renaissance" "an agile practitionner" "a fraudster" "a librarian" "a vegetarian" "a fanatic donald trump supporter" "Plato" "Cicero" "Michael Jordan" "the richest man on the planet" "a baker" "a banker" "an entrepreneur from hong kong who is an ultra liberal who believes in wild, unleashed capitalism in its most aggressive form" "a sudanese teacher" "a lebanese female singer" "Tintin" "Bill Cosby" "a middle-class worker from the 17th century" "Adam Smith" "Goeth" "Pablo Escobar" "Will Smith" "Tim Cook" "Steve Jobs" "Leonardo Davinci" "Gustave Lebon" "Saddam Hussein" "an indian spice trader" "a rich baron in old France" "an angry parent" "a radical member of the french CGT uninon" "poor artist" "a lucky guy" "a goofy politician" "Tim burton" "a muslim calif from the middle ages" "a sultan of andalusia" "a famous soccer player" "a talented spy" "a rude hollywood movie director" "a friendly traveler" "a mysetic" "a beloved father" "a wise grand father" "Donlad Trump" "a pharmacist" "a lobbyist" "an israeli ultra-zionisst" "an iranian" "Patrice Lumumba" "Nelson Mandela" "Yasser Arafat" "Slavoj Zizek" "Schopenhauer" "George Washington" "Bill Gates" "Linus Torvalds" "the founder of Google" "the founder of yahoo!" "steve balmer" "the president of the federal reserve" "the president of bank of america" "bashar al asad" "hassan al bashir" "hassan al basri" "bushr al hafi" "Jordan Peterson" "Vladimir Putin")
+ROLES=("an intern" "a teacher" "a business partner" "an Amazon Engineer" "a Yahoo! engineer" "a Google engineer" "a critic" "a friend" "an ennemy" "a coach" "a counseler" "an advisor" "a parent" "an experienced engineer" "a military strategist" "a Fortune 500 top exectuive" "a CEO of an important business" "a business advisor" "a drunk sysadmin" "a Microsoft MVP" "a corrupt politician" "a renown crook" "a praised book author" "an angel investor" "an army general" "a royal advisor" "a seasoned chess player" "a seasoned poker player" "a top athlete" "a business analyst" "a member of the royal society" "an Ambassador" "a diplomat" "a genius" "an astrophysicist" "a social scientist" "a psychologist" "a scientist" "a researcher" "an artist" "an army veteran" "a linux enthusiast" "Richard Stallman" "a Debian zealot" "Eric Seymour Raymond" "a lawyer" "a doctor" "a billionnaire" "Elon Musk" "a person of great power" "Mao Ze Doung" "Ho Chin Minh" "a prolific author" "a private investigator" "a secret service agent" "an economic expert" "a marxist fundamentalist" "a financial Expert" "a business strategist" "a manager" "the CEO of a Fortune 500 company" "a big law firm attorney" "a prince" "a king" "a linux expert" "a cybersecurity expert" "a renown hacker" "a great historian" "a muslim polymath from the middle ages" "a modern muslim sunni scholar" "a 20th century muslim scholar from the hanafi school" "a formula 1 grand prize winner" "a chess master" "an arab leader from the 70'" "an 20th century philosopher" "a post-modernist" "a great modern mathematician" "a budhist monk" "a great revolutionary leader" "Fidel Castro" "Colonel Muammar Gaddafi" "a free and open source software expert" "a 10x developer" "a great leader from an old civilisation" "a roman emperor" "an efficiency expert" "a SCRUM Master" "a conservative republican" "a progressive democrat" "a based internet celibrity" "Andrew Tate" "a rapper" "a journalist" "Prince (the artist)" "a genetician" "a geopolitician" "an Iranian Shah" "a young algerian" "a young egyptian" "a member of the young turks" "an old web developer" "a nostalgic armenian" "superman" "batman" "Vegeta" "Confucius" "a confucianist" "a taoist" "a stoicist" "a greek philosopher" "a roman army general" "a japanese otaku" "a sumo wrestler" "Michael Moor"  "a secret service agent from MI6" "a cartoonist" "a great architect from the renaissance" "an agile practitionner" "a fraudster" "a librarian" "a vegetarian" "a fanatic donald trump supporter" "Plato" "Cicero" "Michael Jordan" "the richest man on the planet" "a baker" "a banker" "an entrepreneur from hong kong who is an ultra liberal who believes in wild, unleashed capitalism in its most aggressive form" "a sudanese teacher" "a lebanese female singer" "Tintin" "Bill Cosby" "a middle-class worker from the 17th century" "Adam Smith" "Goeth" "Pablo Escobar" "Will Smith" "Tim Cook" "Steve Jobs" "Leonardo Davinci" "Gustave Lebon" "Saddam Hussein" "an indian spice trader" "a rich baron in old France" "an angry parent" "a radical member of the french CGT uninon" "poor artist" "a lucky guy" "a goofy politician" "Tim burton" "a muslim calif from the middle ages" "a sultan of andalusia" "a famous soccer player" "a talented spy" "a rude hollywood movie director" "a friendly traveler" "a mystic" "a beloved father" "a wise grand father" "Donlad Trump" "a pharmacist" "a lobbyist" "an israeli ultra-zionisst" "an iranian" "Patrice Lumumba" "Nelson Mandela" "Yasser Arafat" "Slavoj Zizek" "Schopenhauer" "George Washington" "Bill Gates" "Linus Torvalds" "the founder of Google" "the founder of yahoo!" "steve balmer" "the president of the federal reserve" "the president of bank of america" "bashar al asad" "hassan al bashir" "hassan al basri" "bushr al hafi" "Jordan Peterson" "Vladimir Putin")
 
 TONES=("an authoritative" "a clinical" "a cold" "a confident" "a cynical" "an emotional" "a diplomatic" "a provocative" "an empathetic" "a firm" "a formal" "a friendly" "a humorous" "an informal" "an ironic" "a lighthearted" "an optimistic" "a pessimistic" "a playful" "a sarcastic" "a serious" "a spartan" "a sympathetic" "a tentative" "a warm" "an assertive" "a soft" "a melodic")
 
@@ -44,6 +49,7 @@ STYLES=("an academic" "an administrative" "an analytical" "an argumentative" "a 
 POSTFIXCHARACTER=("with ADHD" "from the 70ies" "book lover" ) 
 PREFIXCHARACTER=("japanese" "dictatorial" "degenerate" "witty" "shady" "kind" "wise" "tech savvy" )
 POSTTEXT=("use analogies from your trade")
+
 
 
 # declare -A johny
@@ -63,7 +69,21 @@ function character.create {
     
 }
 
-
+# in: /home/ychaouche/MUSIQUE/CONTENT/CD1/Power_MarcusMiller.mp3
+# out: Power MarcusMiller
+function song_artist {
+    if (($#))
+    then
+	input="$1"
+    else
+	input=$(cat)
+    fi    
+    local song="$input"
+    song="$(file.path.basename "$song")"
+    song="$(file.ext.remove "$song")"
+    IFS=_ read song artist <<<"$song"
+    echo "$song $artist"
+}
 
 
 
@@ -72,13 +92,14 @@ texttype=$(shuf -n1 -e "${TEXTTYPES[@]}")
 role=$(shuf -n1 -e "${ROLES[@]}")
 tone=$(shuf -n1 -e "${TONES[@]}")
 style=$(shuf -n1 -e "${STYLES[@]}")
-styleandtone="using $tone tone and $style style."
+styleandtone="speaking in $tone tone and $style style."
 postcharacter=$(shuf -n1 -e "${POSTFIXCHARACTER[@]}")
 precharacter=$(shuf -n1 -e "${PREFIXCHARACTER[@]}")
 
 
 command="$1"
 output="You are $role.\n"
+
 
 case "$command" in
     rephrase|rewrite)
@@ -169,8 +190,8 @@ case "$command" in
 	
 	;;
 
-    music)
-	# get rid of "music"
+    analyze-song)
+	# get rid of "song"
 	shift 1
 	output+="Write $texttype in which you talk about $@.\n"
 	output+="analyze it musically: the melody, the rhythm, the lyrics, the chords, the progression, the composition, the arrangements, the mixing and mastering etc. Analyze every aspect of it.\n"
@@ -179,6 +200,42 @@ case "$command" in
 	output+="Use $tone tone and $style style."
 	;;
 
+    suggest-song)
+	ngenres="${2:-3}"
+	declare -a genres
+	output="IIL "
+	for x in $(seq $(( ngenres - 1)))
+	do
+	    read song artist <<< $(song_artist $(av.music.pick 1))
+	    output+="$song by $artist, "
+	done
+	read song artist <<< $(song_artist $(av.music.pick 1))
+    	output+="and $song by $artist,\nwhat should I listen to next?\n"
+	output+="suggest a selection of songs I could listen to.\n"
+	output+="Use this format: Song - Artist or band.\n"
+	output+="look for similarities (BPM, instrumentation, production style, genre, chords, progression, mode, scales, mood, groove, level of sophistication etc.)\n"
+	output+="rather than just popular hits.\n"
+	output+="Don't invent or generate suggestions based on training data,\n"
+        output+="make sure the song exists by search the web.\n"
+        output+="I would rather have 3 real songs than 10 fake songs.\n"	
+        output+="A real link (not generated) to the song on youtube or youtube music would be nice,\n"
+        output+="but not necessary.\n"
+
+    	;;
+    
+    suggest-genre)
+	ngenres="${2:-3}"
+	declare -a genres
+	output="Tell me about "
+	for x in $(seq $(( ngenres - 1)))
+	do
+	    output+="$(wpmg.pick), " 
+	done
+    	output+="and $(wpmg.pick) music,\nand suggest a short playlist to discover these genres,\n"
+	output+="with links to youtube or youtube music\n"	
+    	;;
+
+    
     tutor|teacher)
 	output+="I am going to ask you some questions.\n"
 	output+="Give sufficiently short answers to make it fast to read,\n"
@@ -324,15 +381,7 @@ case "$command" in
 	output+="\n"
 	output+="We will collaborate sentence by sentence: \n"
 	output+="I will start a sentence or provide a partial one, \n"
-	output+="and you will complete it naturally, \n"
-	output+="then add 1-3 short follow-up sentences\n"
-	output+="to advance the explanation or story\n"
-	output+="in a logical, engaging way.\n"
-	output+="\n"
-	output+="Keep all sentences concise\n"
-	output+="(under 20 words each)\n"
-	output+="and focused on clarity.\n"
-	output+="After your completions, always wait for my next input.\n"
+	output+="and you will complete it naturally. \n"
 	output+="\n"
 	output+="If my (partial) sentence is ambiguous \n"
 	output+="(e.g., could lead to multiple directions),\n"
@@ -341,17 +390,20 @@ case "$command" in
 	output+="Example interaction on the topic of making butter:\n"
 	output+="Me: The milk is used to...\n"
 	output+="You:...create butter. Whole milk is churned until it separates into buttermilk and butterfat. \n"
-	output+="The butterfat clumps together into solid bits,\n"
-	output+="which are then kneaded\n"
-	output+="until smooth and pliable\n"
-	output+="and optionally salted.\n"
 	output+="\n"
 	output+="You must be critic at the same time\n"
 	output+="and correct any inaccuracies in my input.\n"
 	output+="if you detect one, you must tell me about it,\n"
 	output+="then offer correction\n"
 	;;
-	
+
+    wpmg)
+	output+="$styleandtone\n"
+	output+="I am going to give you a series of music genres.\n"
+	output+="For each one of them,\n"
+	output+="give a brief history of its evolution\n"
+	output+="and suggest a few of its most popular songs.\n"
+	;;
     *)
 	output+="Write $texttype in which you $@,\n $styleandtone\n"
 	;;
