@@ -3,22 +3,24 @@ Random GPT prompt generator that sets tone, style and personality.
 For the time being,  
 it recognizes the following special verbs :  
 
-    # verbs :
-    # rephrase|rewrite
-    # explain
-    # debate|dialog
-    # answer
-    # analyze
-    # interview
-    # movie
-    # music
-    # tutor | teacher
-    # tone
-    # character
-    # teach
-    # country
-    # wikipedia
-    # coauthor
+
+    #   rephrase|rewrite
+    #   explain
+    #   debate|dialog
+    #   answer
+    #   analyze
+    #   interview
+    #   movie
+    #   analyze-song
+    #   suggest-song
+    #   suggest-genre            
+    #   tutor|teacher
+    #   tone
+    #   character
+    #   teach
+    #   country
+    #   wikipedia
+    #   coauthor
 
 Otherwise, it uses a generic, random 'write' prompt.  
 
@@ -291,6 +293,7 @@ if you detect one, you must tell me about it,
 then offer correction
 $
 ```
+
 
 # prompt ideas
 Don't hesitate to open issues for new prompt ideas,
