@@ -18,7 +18,8 @@ then
     echo "    movie"
     echo "    analyze-song"
     echo "    suggest-song"
-    echo "    suggest-genre"            
+    echo "    suggest-genre"
+    echo "    music-genre"
     echo "    tutor|teacher"
     echo "    tone"
     echo "    character"
@@ -216,7 +217,7 @@ case "$command" in
 	output+="look for similarities (BPM, instrumentation, production style, genre, chords, progression, mode, scales, mood, groove, level of sophistication etc.)\n"
 	output+="rather than just popular hits.\n"
 	output+="Don't invent or generate suggestions based on training data,\n"
-        output+="make sure the song exists by search the web.\n"
+        output+="make sure the song exists by searching the web.\n"
         output+="I would rather have 3 real songs than 10 fake songs.\n"	
         output+="A real link (not generated) to the song on youtube or youtube music would be nice,\n"
         output+="but not necessary.\n"
@@ -397,12 +398,30 @@ case "$command" in
 	output+="then offer correction\n"
 	;;
 
-    wpmg)
+    music-genre)
 	output+="$styleandtone\n"
 	output+="I am going to give you a series of music genres.\n"
 	output+="For each one of them,\n"
 	output+="give a brief history of its evolution\n"
 	output+="and suggest a few of its most popular songs.\n"
+	output+="Example output format I'm looking for:\n"
+	output+="	\n"	
+	output+="----\n"
+	output+="Yacht Soul examples:\n"
+	output+="	\n"
+	output+="What You Won’t Do for Love – Bobby Caldwell\n"
+	output+="Human Nature – Michael Jackson\n"
+	output+="\n"
+	output+="High-end production of R&B, Soul and Funk.\n"
+	output+="West Coast.\n"
+	output+="Smooth.\n"
+	output+="Polished.\n"
+	output+="High quality sound.\n"
+	output+="Sophisticated 9th chords.\n"
+	output+="----\n"	
+	output+="	\n"
+	shift 1 # get rid of music-genre
+	output+="Here are the genres: $@\n"
 	;;
     *)
 	output+="Write $texttype in which you $@,\n $styleandtone\n"
