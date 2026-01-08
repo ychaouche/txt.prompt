@@ -219,9 +219,6 @@ case "$command" in
 	output+="Don't invent or generate suggestions based on training data,\n"
         output+="make sure the song exists by searching the web.\n"
         output+="I would rather have 3 real songs than 10 fake songs.\n"	
-        output+="A real link (not generated) to the song on youtube or youtube music would be nice,\n"
-        output+="but not necessary.\n"
-
     	;;
     
     suggest-genre)
