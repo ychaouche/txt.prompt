@@ -201,7 +201,7 @@ case "$command" in
 	output+="Use $tone tone and $style style."
 	;;
 
-    suggest-song)
+    suggest-song-old)
 	ngenres="${2:-3}"
 	declare -a genres
 	output="IIL "
@@ -220,6 +220,35 @@ case "$command" in
         output+="make sure the song exists by searching the web.\n"
         output+="I would rather have 3 real songs than 10 fake songs.\n"	
     	;;
+
+    suggest-song)
+	output+="speaking in $tone tone and $style style.\n"
+	output+="Suggest music based on genre, \n"
+	output+="feel, and vibe, from input songs I provide,\n"
+	output+="using criteria such as BPM,\n"
+	output+="instrumentation, production style, genre,\n"
+	output+="chords, progression, mode, scales,\n"
+	output+="mood, groove, level of sophistication etc,\n"
+	output+="and by following these two simple steps: \n"
+	output+="\n"
+	output+="Step 1: Analyse the songs I give you, \n"
+	output+="using the criteria suggested above.\n"
+	output+="If unknown to you, do a web search and provide factual data.\n"
+	output+="\n"
+	output+="Step 2: Perform a web search to provide a list of 3 to 5 similar songs,\n"
+	output+="and format the results as: song name - artist/band.\n"
+	output+="\n"
+	output+="Input songs:\n"
+	
+	nsongs="${2:-3}"
+	declare -a songs
+	for x in $(seq $nsongs)
+	do
+	    read song artist <<< $(song_artist $(av.music.pick 1))
+	    output+="  - $song by $artist;\n"
+	done
+	;;
+
     
     suggest-genre)
 	ngenres="${2:-3}"
