@@ -130,8 +130,9 @@ case "$command" in
 	;;
 
     analy[sz]e)
-	output+="Analyze the technical and conceptual accuracy of the following text.\n"
-	output+="highlighting and explaining any inaccuracies, inconsistencies or ambiguities,\n"
+	output+="Analyze the technical and conceptual accuracy of the following text,\n"
+	output+="highlighting and explaining any inaccuracies,\n"
+        output+="inconsistencies or ambiguities, "
 	output+="$styleandtone\n"	
 	;;
 
