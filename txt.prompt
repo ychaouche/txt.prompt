@@ -27,6 +27,7 @@ then
     echo "    country"
     echo "    wikipedia"
     echo "    coauthor"
+    echo "    challenge"
     echo ""
     exit 1
 fi
@@ -93,24 +94,24 @@ texttype=$(shuf -n1 -e "${TEXTTYPES[@]}")
 role=$(shuf -n1 -e "${ROLES[@]}")
 tone=$(shuf -n1 -e "${TONES[@]}")
 style=$(shuf -n1 -e "${STYLES[@]}")
-styleandtone="speaking in $tone tone and $style style."
+styleandtone="speaking in $tone tone and $style style"
 postcharacter=$(shuf -n1 -e "${POSTFIXCHARACTER[@]}")
 precharacter=$(shuf -n1 -e "${PREFIXCHARACTER[@]}")
 
 
 command="$1"
-output="You are $role.\n"
+output="You are $role,\n"
 
 
 case "$command" in
     rephrase|rewrite)
 	output+="Rewrite the following text as $texttype,\n"
-	output+="$styleandtone\n"
+	output+="$styleandtone.\n"
 	;;
     explain)
 	shift #(remove explain)
 	output+="Write $texttype explaining $@\n,"
-	output+="$styleandtone\n"	
+	output+="$styleandtone.\n"	
 
 	;;
     debate|dialog*)
@@ -126,14 +127,14 @@ case "$command" in
 	output+="The second character is speaking in $tone2 tone and $style2 style."	
 	;;
     answer)
-	output="Answer like $role, $styleandtone\n"
+	output="Answer like $role, $styleandtone.\n"
 	;;
 
     analy[sz]e)
 	output+="Analyze the technical and conceptual accuracy of the following text,\n"
 	output+="highlighting and explaining any inaccuracies,\n"
         output+="inconsistencies or ambiguities, "
-	output+="$styleandtone\n"	
+	output+="$styleandtone.\n"	
 	;;
 
     interview)
@@ -186,7 +187,7 @@ case "$command" in
 	# skip "movie" command
 	shift 1
 	output="Analyse the movie $1 from the perspective of $role,\n"
-	output+="$styleandtone\n"	
+	output+="$styleandtone.\n"	
 	output+="Mention your favorite scene.\n"
 	output+="Try to find different levels of meaning (litteral, symbolic and allegorical) to the movie title as well as its different possible interpretations."
 	
@@ -219,7 +220,8 @@ case "$command" in
 	output+="rather than just popular hits.\n"
 	output+="Don't invent or generate suggestions based on training data,\n"
         output+="make sure the song exists by searching the web.\n"
-        output+="I would rather have 3 real songs than 10 fake songs.\n"	
+        output+="I would rather have 3 real songs than 10 fake songs.\n"
+
     	;;
 
     suggest-song)
@@ -238,6 +240,7 @@ case "$command" in
 	output+="\n"
 	output+="Step 2: Perform a web search to provide a list of 3 to 5 similar songs,\n"
 	output+="and format the results as: song name - artist/band.\n"
+	output+="End with a suggestion that is at the intersection of the input songs.\n"	
 	output+="\n"
 	output+="Input songs:\n"
 	
@@ -267,7 +270,7 @@ case "$command" in
     tutor|teacher)
 	output+="I am going to ask you some questions.\n"
 	output+="Give sufficiently short answers to make it fast to read,\n"
-	output+="$styleandtone\n"	
+	output+="$styleandtone.\n"	
 	output+="Draw parallels from your own experience.\n"
 	output+="I'll ask more questions if it's still unclear,\n"
 	output+="and you'd still answer with sufficiently short answers,\n"
@@ -343,7 +346,7 @@ case "$command" in
 	output+="one page about culture, traditions, festivals etc.\n"
 	output+="and so on for the rest.\n"
 	output+="\n"	
-	output+="write as $role, $styleandtone\n"
+	output+="write as $role, $styleandtone.\n"
 	;;
 
     wikipedia)
@@ -426,7 +429,7 @@ case "$command" in
 	;;
 
     music-genre)
-	output+="$styleandtone\n"
+	output+="$styleandtone.\n"
 	output+="I am going to give you a series of music genres.\n"
 	output+="For each one of them,\n"
 	output+="give a brief history of its evolution\n"
@@ -449,6 +452,15 @@ case "$command" in
 	output+="	\n"
 	shift 1 # get rid of music-genre
 	output+="Here are the genres: $@\n"
+	;;
+
+    challenge)
+	output+="$styleandtone.\n"
+	output+="I want you to challenge the previous claims,\n"
+	output+="offering a different, counter-perspective,\n"
+	output+="drawing parallels from your own experience.\n"
+	output+="Your claims must be factual and legitimate,\n"
+	output+="or at least based on reasonable speculation.\n"	
 	;;
     *)
 	output+="Write $texttype in which you $@,\n $styleandtone\n"
