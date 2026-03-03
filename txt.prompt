@@ -353,7 +353,7 @@ case "$command" in
 	shift 1 # get rid of wikipedia
 	output="Task\n\n    $output"
 	output+="    with an expertise in clear and accessible writing.\n"	
-	output+="    Rewrite the following Wikipedia article [$1] by simplifying it\n" 
+	output+="    Rewrite the following Wikipedia article [$@] by simplifying it\n" 
 	output+="    and making it more readable for a general audience\n"
 	output+="    (like a student or curious reader without prior expertise). \n"
 	output+="\n"		
@@ -394,11 +394,14 @@ case "$command" in
 	output+="    condensing without losing the essence,\n"
 	output+="\n"	
 	output+="Mini-Quizz\n"
-	output+="\n"			
-	output+="    Add a mini-quizz at the end, giving both questions and answers (max 7).\n"
-	output+="    For each question suggest 3 answers then give the right answer.\n"
+	output+="\n"
+	output+="    Finish your article with this sentence: \"Type \"Quizz\" to start the quizz\",\n".
+	output+="    then wait for my input.\n"
+	output+="    If I type quizz, then prepare a mini-quizz of 7 questions max.\n"
 	output+="    The quizz must be interactive: ask the question, suggest answers, wait for my response.\n"
-	output+="    Comment and interact with my answer, then ask for confirmation before moving to the next question\n"
+	output+="    Do not ask all questions at once.\n"
+	output+="    For each question, suggest 3 answers then wait for my input.\n" 
+	output+="    Comment on my input, then ask for confirmation before moving to the next question.\n"
 	output+="\n"
 	;;
 
