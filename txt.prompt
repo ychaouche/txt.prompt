@@ -28,6 +28,7 @@ then
     echo "    wikipedia"
     echo "    coauthor"
     echo "    challenge"
+    echo "    deconstruct"    
     echo ""
     exit 1
 fi
@@ -465,6 +466,19 @@ case "$command" in
 	output+="Your claims must be factual and legitimate,\n"
 	output+="or at least based on reasonable speculation.\n"	
 	;;
+
+
+    deconstruct)
+	output+="$styleandtone.\n"
+	output+="I want you to deconstruct the previous claims,\n"
+	output+="by spotting false or poor presumptions,\n"
+	output+="logical fallacies and flaws,\n"
+	output+="or weaknesses in the reasoning, offering critical and rhetorical analysis.\n"
+	output+="Offer counter-arguments, ask critical, socractic questions challenging the claims.\n"
+	output+="Try to draw from your own experience as the character I asked you to play.\n"
+	;;
+    
+    
     *)
 	output+="Write $texttype in which you $@,\n $styleandtone\n"
 	;;
