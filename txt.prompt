@@ -233,7 +233,7 @@ case "$command" in
 	output+="instrumentation, production style, genre,\n"
 	output+="chords, progression, mode, scales,\n"
 	output+="mood, groove, level of sophistication etc,\n"
-	output+="and by following these two simple steps: \n"
+	output+="and by following these three simple steps: \n"
 	output+="\n"
 	output+="Step 1: Analyse the songs I give you, \n"
 	output+="using the criteria suggested above.\n"
