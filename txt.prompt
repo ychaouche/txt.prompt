@@ -17,7 +17,7 @@ then
     echo "    interview"
     echo "    movie"
     echo "    analyze-song"
-    echo "    suggest-song"
+    echo "    suggest-song|suggest-music"
     echo "    suggest-genre"
     echo "    music-genre"
     echo "    tutor|teacher"
@@ -225,7 +225,7 @@ case "$command" in
 
     	;;
 
-    suggest-song)
+    suggest-@(song|music))
 	output+="speaking in $tone tone and $style style.\n"
 	output+="Suggest music based on genre, \n"
 	output+="feel, and vibe, from input songs I provide,\n"
