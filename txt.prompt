@@ -265,13 +265,16 @@ case "$command" in
     suggest-genre)
 	ngenres="${2:-3}"
 	declare -a genres
-	output="Tell me about "
+	output+="Tell me about "
 	for x in $(seq $(( ngenres - 1)))
 	do
 	    output+="$(wpmg.pick), " 
 	done
-    	output+="and $(wpmg.pick) music,\nand suggest a short playlist to discover these genres,\n"
-	output+="with links to youtube or youtube music\n"	
+    	output+="and $(wpmg.pick) music,\n"
+	output+="then suggest a short playlist to discover these genres,\n"
+	output+="and format the results as: song name - artist/band.\n"
+	output+="If applicable, try to find a song that is at the intersection,\n"
+	output+="or approaches it.\n"
     	;;
 
     
