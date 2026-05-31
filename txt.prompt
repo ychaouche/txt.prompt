@@ -28,7 +28,8 @@ then
     echo "    wikipedia"
     echo "    coauthor"
     echo "    challenge"
-    echo "    deconstruct"    
+    echo "    deconstruct"
+    echo "    photo|image"        
     echo ""
     exit 1
 fi
@@ -48,6 +49,27 @@ ROLES=("an intern" "a teacher" "a business partner" "an Amazon Engineer" "a Yaho
 TONES=("an authoritative" "a clinical" "a cold" "a confident" "a cynical" "an emotional" "a diplomatic" "a provocative" "an empathetic" "a firm" "a formal" "a friendly" "a humorous" "an informal" "an ironic" "a lighthearted" "an optimistic" "a pessimistic" "a playful" "a sarcastic" "a serious" "a spartan" "a sympathetic" "a tentative" "a warm" "an assertive" "a soft" "a melodic")
 
 STYLES=("an academic" "an administrative" "an analytical" "an argumentative" "a conversational" "a creative" "a critical" "a descriptive" "an epigrammatic" "an epistolary" "an expository" "an informative" "an instructive" "a journalistic" "a metaphorical" "a narrative" "a persuasive" "a poetic" "a satirical" "a technical" "a captivating" "a philosophical" "an anthropologic" "a psychological" "a thrilling" "a visual" "a tonic" "an energetic" "a documentary" "a cinematic" "a marketing campaign")
+
+
+
+# 1. Styles Artistiques
+ISTYLES=("Impressionist" "Cubist" "Surrealist" "Pop Art" "Cyberpunk" "Steampunk" "Ukiyo-e woodblock print" "Fauvist" "Bauhaus geometric" "Art Nouveau" "8-bit Pixel Art" "Gothic" "Renaissance painting")
+
+# 2. Médiums
+IMEDIUMS=("oil painting on canvas" "charcoal sketch on textured paper" "watercolor on cold-press paper" "bronze sculpture" "stained glass" "digital illustration" "polaroid photo" "claymation model" "pencil drawing")
+
+# 3. Éclairages
+ILIGHTING=("dramatic chiaroscuro" "soft studio lighting" "neon light glow" "golden hour backlighting" "volumetric fog lights" "stroboscopic flash" "underwater caustics lighting" "bioluminescent glow")
+
+# 4. Palettes de Couleurs
+ICOLORS=("vibrant and highly saturated colors" "pastel color palette" "monochromatic" "sepia toned" "duotone (black and gold)" "complementary colors scheme" "dark and moody colors")
+
+# 5. Atmosphères / Humeurs
+IMOODS=("dreamlike and ethereal" "melancholic and somber" "chaotic and energetic" "minimalist and clean" "epic and cinematic" "nostalgic" "creepy and unsettling")
+
+
+
+
 
 POSTFIXCHARACTER=("with ADHD" "from the 70ies" "book lover" ) 
 PREFIXCHARACTER=("japanese" "dictatorial" "degenerate" "witty" "shady" "kind" "wise" "tech savvy" )
@@ -91,17 +113,16 @@ function song_artist {
 
 
 
-texttype=$(shuf -n1 -e "${TEXTTYPES[@]}")
-role=$(shuf -n1 -e "${ROLES[@]}")
-tone=$(shuf -n1 -e "${TONES[@]}")
-style=$(shuf -n1 -e "${STYLES[@]}")
+texttype="$(array.pick TEXTTYPES)"
+role="$(array.pick ROLES)"
+tone="$(array.pick TONES)"
+style="$(array.pick STYLES)"
+postcharacter="$(array.pick POSTFIXCHARACTER)"
+precharacter="$(array.pick PREFIXCHARACTER)"
 styleandtone="speaking in $tone tone and $style style"
-postcharacter=$(shuf -n1 -e "${POSTFIXCHARACTER[@]}")
-precharacter=$(shuf -n1 -e "${PREFIXCHARACTER[@]}")
-
-
 command="$1"
 output="You are $role,\n"
+
 
 
 case "$command" in
@@ -487,7 +508,28 @@ case "$command" in
 	output+="Offer counter-arguments, ask critical, socractic questions challenging the claims.\n"
 	output+="Try to draw from your own experience as the character I asked you to play.\n"
 	;;
-    
+
+
+    photo|image)
+	# Génération de modificateurs visuels spécifiques en recyclant tes variables de base
+	# $style devient le courant artistique, $tone définit l'ambiance lumineuse, etc.
+
+	istyle="$(array.pick ISTYLES)"
+	imedium="$(array.pick IMEDIUMS)"
+	ilighting="$(array.pick ILIGHTING)"
+	icolors="$(array.pick ICOLORS)"
+	imood="$(array.pick IMOODS)"
+	
+	output="[IMAGE TRANSFORMATION PROTOCOL]\n"
+	output+="You act as a visual generative AI engine trained by $role.\n"
+	output+="Modify the provided input image by strictly applying the criteria below:\n\n"
+	output+="CRITERIA:\n\n"
+	output+="style: $istyle\n"
+	output+="medium: $imedium\n"	
+	output+="lighting: $ilighting\n"
+	output+="colors: $icolors\n"
+	output+="mood: $imood\n"
+	;;
     
     *)
 	output+="Write $texttype in which you $@,\n $styleandtone\n"
