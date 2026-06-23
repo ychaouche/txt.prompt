@@ -208,7 +208,7 @@ case "$command" in
     movie)
 	# skip "movie" command
 	shift 1
-	output="Analyse the movie $1 from the perspective of $role,\n"
+	output="Analyse the movie \"$@\" from the perspective of $role,\n"
 	output+="$styleandtone.\n"	
 	output+="Mention your favorite scene.\n"
 	output+="Try to find different levels of meaning (litteral, symbolic and allegorical) to the movie title as well as its different possible interpretations."
