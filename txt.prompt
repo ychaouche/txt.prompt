@@ -53,23 +53,23 @@ STYLES=("an academic" "an administrative" "an analytical" "an argumentative" "a 
 
 
 # 1. Styles Artistiques
-ISTYLES=("Impressionist" "Cubist" "Surrealist" "Pop Art" "Cyberpunk" "Steampunk" "Ukiyo-e woodblock print" "Fauvist" "Bauhaus geometric" "Art Nouveau" "8-bit Pixel Art" "Gothic" "Renaissance painting")
+ISTYLES=("Impressionist" "Cubist" "Surrealist" "Pop Art" "Cyberpunk" "Steampunk" "Ukiyo-e woodblock print" "Fauvist" "Bauhaus geometric" "Art Nouveau" "8-bit Pixel Art" "Gothic" "Renaissance painting" "croquis" "vue aerienne" "Expressionist" "Dadaist" "Constructivist" "Minimalist" "Abstract Expressionist" "Baroque" "Rococo" "Manga" "Graphic novel" "Art Deco" "Brutalist" "Folk art" "Paper-cut collage" "Lino print" "Isometric illustration" "Architectural drawing" "3D art" "kids drawing" "Artistic Portray" "carricature" "old cartoons" "dessin à l'encre" "technicolor")
 
 # 2. Médiums
-IMEDIUMS=("oil painting on canvas" "charcoal sketch on textured paper" "watercolor on cold-press paper" "bronze sculpture" "stained glass" "digital illustration" "polaroid photo" "claymation model" "pencil drawing")
+IMEDIUMS=("oil painting on canvas" "charcoal sketch on textured paper" "watercolor on cold-press paper" "bronze sculpture" "stained glass" "digital illustration" "polaroid photo" "claymation model" "pencil drawing" "photomaton" "tableaux accrochés au mur" "acrylic painting on wood" "gouache on paper" "ink wash" "pastel on toned paper" "screen print" "risograph print" "paper collage" "embroidery on linen" "mosaic tile" "ceramic pottery" "woodcut print" "cyanotype photograph" "3D rendered sculpture" "colored pencil drawing" "petites figurines")
 
 # 3. Éclairages
-ILIGHTING=("dramatic chiaroscuro" "soft studio lighting" "neon light glow" "golden hour backlighting" "volumetric fog lights" "stroboscopic flash" "underwater caustics lighting" "bioluminescent glow")
+ILIGHTING=("dramatic chiaroscuro" "soft studio lighting" "neon light glow" "golden hour backlighting" "volumetric fog lights" "stroboscopic flash" "underwater caustics lighting" "bioluminescent glow" "harsh midday sunlight" "candlelit glow" "moonlight" "rim lighting" "dappled forest light" "overcast diffused light" "single spotlight" "warm window light" "colored gel lighting" "firelight flicker" "silhouette against a bright sky")
 
 # 4. Palettes de Couleurs
-ICOLORS=("vibrant and highly saturated colors" "pastel color palette" "monochromatic" "sepia toned" "duotone (black and gold)" "complementary colors scheme" "dark and moody colors")
+ICOLORS=("vibrant and highly saturated colors" "pastel color palette" "monochromatic" "sepia toned" "duotone (black and gold)" "complementary colors scheme" "dark and moody colors" "earthy terracotta and ochre" "cool blue and silver" "muted sage and cream" "black, white, and crimson" "warm autumn palette" "icy pastel palette" "forest greens and mossy browns" "sunset orange and violet" "limited three-color palette" "desaturated tones" "rainbow gradient" "dusty rose and navy")
 
 # 5. Atmosphères / Humeurs
-IMOODS=("dreamlike and ethereal" "melancholic and somber" "chaotic and energetic" "minimalist and clean" "epic and cinematic" "nostalgic" "creepy and unsettling")
+IMOODS=("dreamlike and ethereal" "melancholic and somber" "chaotic and energetic" "minimalist and clean" "epic and cinematic" "nostalgic" "creepy and unsettling" "serene and contemplative" "playful and whimsical" "tense and suspenseful" "mysterious and enigmatic" "warm and inviting" "lonely and desolate" "futuristic and clinical" "romantic and tender" "surreal and disorienting" "triumphant and hopeful" "quietly ominous" "lively and celebratory" "sunrise" )
 
+# 6. DEgré de transformation
 
-
-
+ITRANSFORMATIONS=("modérée" "chaotique" "subtile" "retouches simples" "esthétique" "retouches profondes" "remodelage complet" "créé une autre oeuvre inspirée par celle-ci" "transformation radicale")
 
 POSTFIXCHARACTER=("with ADHD" "from the 70ies" "book lover" ) 
 PREFIXCHARACTER=("japanese" "dictatorial" "degenerate" "witty" "shady" "kind" "wise" "tech savvy" )
@@ -549,18 +549,75 @@ case "$command" in
 	ilighting="$(array.pick ILIGHTING)"
 	icolors="$(array.pick ICOLORS)"
 	imood="$(array.pick IMOODS)"
+	itrans="$(array.pick ITRANSFORMATIONS)"
 	
 	output="[IMAGE TRANSFORMATION PROTOCOL]\n"
 	output+="You act as a visual generative AI engine trained by $role.\n"
-	output+="Modify the provided input image by strictly applying the criteria below:\n\n"
-	output+="CRITERIA:\n\n"
+	output+="Modify the provided input image by applying the [CRITERIA] below:\n\n"
+	output+="[CRITERIA]:\n\n"
 	output+="style: $istyle\n"
 	output+="medium: $imedium\n"	
 	output+="lighting: $ilighting\n"
 	output+="colors: $icolors\n"
 	output+="mood: $imood\n"
+	output+="degré de transformation: $itrans"
+	output+="\n\n"
+	output+="Add whatever fits the role of your trainer,\n"
+	output+="things he would have added,\n"
+        output+="or changed, or removed.\n"
+	output+="Add your trainer's own artistic touch.\n"
 	;;
-    
+
+    brainstorm)
+	output="Tu es un facilitateur de pensée, \n"
+	output+="expert en structuration d'idées, \n"
+	output+="en design de processus\n"
+	output+="et en organisation de l'information, \n"
+	output+="$styleandtone\n"
+	output+="\n"
+	output+="Je vais te fournir des notes brutes, \n"
+	output+="des fragments de pensées\n"
+	output+="ou des listes d'idées éparpillées\n"
+	output+="sur un sujet particulier. \n"
+	output+="Ton rôle est de m'aider à faire le tri, \n"
+	output+="à approfondir la réflexion,\n"
+	output+="à l'enrichir, et à transformer ce vrac\n"
+	output+="en concepts exploitables.\n"
+	output+="\n"
+	output+="Selon le contexte, et si la discussion s'y prête,\n"
+	output+="tu pourrais : \n"
+	output+="\n"
+	output+="  - Réorganiser mes notes de manière logique et claire.\n"
+	output+="  - Donner une forme cohérente à ce qui est éparpillé.\n"
+	output+="  - Classer ou regrouper les idées qui doivent l'être.\n"
+	output+="    Utilise pour cela une classification encyclopédique ou ontologique.\n"
+	output+="\n"
+	output+="  - Poser les questions cruciales que mes notes oublient. \n"
+	output+="  - Identifier les manques, les zones d'ombre\n"
+	output+="    ou les défis logiques à anticiper\n"
+	output+="    pour la viabilité de ce projet/idée.\n"
+	output+="\n"
+	output+="  - Coupler ces idées à des idées neuves,\n"
+	output+="    proposer de nouvelles pistes d'exploration,\n"
+	output+="    extrapoler, entrevoir des variantes\n"
+	output+="    ou des cas d'usage non explorés.\n"
+	output+="    Ouvrir des perspectives pour enrichir le sujet initial.\n"
+	output+="\n"
+	output+="  - proposer, selon le sujet et l'objectif,\n"
+	output+="    un tableau de suivi,\n"
+	output+="    un plan d'action, un guide méthodologique, \n"
+	output+="    un script, etc. en expliquant pourquoi c'est pertinent.\n"
+	output+="\n"
+	output+="Libre à toi de prendre d'autres initiaitves que tu vois pertinentes\n"
+	output+="surtout par rapport au [ROLE] que je vais te demander de jouer\n"
+	output+="\n"	
+	output+='\n'
+	output+="[ROLE]\n"
+	output+="To make the text more interesting,\n"
+	output+="you'll impersonate $role,\n"
+	output+="$styleandtone.\n"
+	
+	;;
     *)
 	output+="Write $texttype in which you $@,\n $styleandtone\n"
 	;;
