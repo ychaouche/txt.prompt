@@ -237,11 +237,17 @@ case "$command" in
 	output+="    - Chocs et ascenceurs émotionnels sur une échelle d'intensité dramatique \n"	
 	output+="    - Persistence (on se rappellera de ce flime ou de quelques répliques pour longtemps) \n"
 	output+="    - Complexité (on ne comprend pas tout, on doit revoir le film, certains détails passent inaperçus)\n"	
+	output+="    - Qualité de la mise en scène (cadrage, montage, rythme et direction des acteurs)\n"
 	output+="    - ...\n"
 	output+="\n"	
 	output+="\n"
 	output+="Décline ces critères dans un tableau\n"
-	output+="avec une note allant de 1 à 10\n"	
+	output+="avec une note allant de 1 à 10.\n"
+	output+="Tu mettras les filmes en colonne\n"
+	output+="les critères en lignes.\n"
+	output+="La tableau devra pouvoir être lu verticalement,.\n"
+	output+="pas horizontalement.\n"
+	output+="La dernière ligne contiendra le score total sur 100.\n"
 	output+="Termine par une analyse en SB7.\n"
 	
 	;;
