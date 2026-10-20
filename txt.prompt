@@ -31,6 +31,7 @@ then
     echo "    deconstruct"
     echo "    photo|image"
     echo "    tech-support"
+    echo "    chat"
     echo ""
     exit 1
 fi
@@ -740,6 +741,23 @@ EOF
 	output+="\n"	
 	output+="speak in $style style and $tone tone.\n"
 	
+	;;
+
+    chat)
+	output+="$styleandtone\n"
+	output+=$(cat <<"EOF"
+Réponds comme dans une conversation orale naturelle : 
+avec des phrases courtes, 
+et une seule idée à la fois. 
+Évite les longs blocs de texte, 
+les listes et les explications détaillées, 
+sauf si je te les demande. 
+Réponds simplement, 
+puis laisse-moi poursuivre la conversation. 
+Pose une petite question de suivi seulement si c’est naturel.	    
+EOF
+	)
+	output+="\n"
 	;;
     *)
 	output+="Write $texttype in which you $@,\n $styleandtone\n"
