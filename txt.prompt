@@ -12,7 +12,7 @@ then
     echo "    rephrase|rewrite"
     echo "    explain"
     echo "    debate|dialog"
-    echo "    answer"
+    # echo "    answer"
     echo "    analyze"
     echo "    interview"
     echo "    movie"
@@ -24,7 +24,7 @@ then
     echo "    tone"
     echo "    character"
     echo "    teach"
-    echo "    country"
+    echo "    country|place"
     echo "    wikipedia"
     echo "    coauthor"
     echo "    challenge"
@@ -124,18 +124,16 @@ precharacter="$(array.pick PREFIXCHARACTER)"
 styleandtone="speaking in $tone tone and $style style"
 command="$1"
 output="You are $role,\n"
-
+output+="$styleandtone.\n"
 
 
 case "$command" in
     rephrase|rewrite)
 	output+="Rewrite the following text as $texttype,\n"
-	output+="$styleandtone.\n"
 	;;
     explain)
 	shift #(remove explain)
 	output+="Write $texttype explaining $@\n,"
-	output+="$styleandtone.\n"	
 
 	;;
     debate|dialog*)
@@ -150,20 +148,19 @@ case "$command" in
 	output+="The first character is speaking in $tone1 tone and $style1 style.\n"
 	output+="The second character is speaking in $tone2 tone and $style2 style."	
 	;;
-    answer)
-	output="Answer like $role, $styleandtone.\n"
-	;;
+    # answer)
+    # 	output="Answer like $output"
+    # 	;;
 
     analy[sz]e)
 	output+="Analyze the technical and conceptual accuracy of the following text,\n"
 	output+="highlighting and explaining any inaccuracies,\n"
         output+="inconsistencies or ambiguities, "
-	output+="$styleandtone.\n"	
 	;;
 
     interview)
 	character_number="${2:-5}"
-	output="Imagine conducting an interview with the following persons:\n"
+	output+="Imagine conducting an interview with the following persons:\n"
 	for x in $(seq "${character_number}")
 	do
 	    # create a variable that holds that name
@@ -210,8 +207,7 @@ case "$command" in
     movie)
 	# skip "movie" command
 	shift 1
-	output="Analyse the movie \"$@\" from the perspective of $role,\n"
-	output+="$styleandtone.\n"	
+	output+="Analyse the movie \"$@\" \n"
 	output+="Mention your favorite scene.\n"
 	output+="Try to find different levels of meaning (litteral, symbolic and allegorical) to the movie title as well as its different possible interpretations.\n"
 	output+="Start with a synopsis,\n"
@@ -263,29 +259,7 @@ case "$command" in
 	output+="Use $tone tone and $style style."
 	;;
 
-    suggest-song-old)
-	ngenres="${2:-3}"
-	declare -a genres
-	output="IIL "
-	for x in $(seq $(( ngenres - 1)))
-	do
-	    read song artist <<< $(song_artist $(av.music.pick 1))
-	    output+="$song by $artist, "
-	done
-	read song artist <<< $(song_artist $(av.music.pick 1))
-    	output+="and $song by $artist,\nwhat should I listen to next?\n"
-	output+="suggest a selection of songs I could listen to.\n"
-	output+="Use this format: Song - Artist or band.\n"
-	output+="look for similarities (BPM, instrumentation, production style, genre, chords, progression, mode, scales, mood, groove, level of sophistication etc.)\n"
-	output+="rather than just popular hits.\n"
-	output+="Don't invent or generate suggestions based on training data,\n"
-        output+="make sure the song exists by searching the web.\n"
-        output+="I would rather have 3 real songs than 10 fake songs.\n"
-
-    	;;
-
     suggest-@(song|music))
-	output+="speaking in $tone tone and $style style.\n"
 	output+="Suggest music based on genre, \n"
 	output+="feel, and vibe, from input songs I provide,\n"
 	output+="using criteria such as BPM,\n"
@@ -338,7 +312,6 @@ case "$command" in
 
     
     tutor|teacher)
-	output+="$styleandtone.\n"		
 	output+="I am going to ask you some questions.\n"
 	output+="Give sufficiently short answers to make it fast to read.\n"
 	output+="Draw parallels from your own experience.\n"
@@ -347,14 +320,10 @@ case "$command" in
 	output+="until I get the picture."
 	;;
 
-    tone)
-	output="$tone tone and $style style."
-	;;
     character)
 	output+="speaking in $tone tone and $style style."	
 	;;
     teach)
-	output+="speaking in $tone and $style style,\n"
 	output+="and drawing parallels from your own experience or life,\n"
 	output+="where applicable.\n"	
 	output+="$@ using the pareto principle,\n"
@@ -398,10 +367,10 @@ case "$command" in
 	output+="then wait for next interaction before jumping to the next concept.\n"
 	;;
 
-    country)
+    country|place)
 	shift 1 # get rid of "country"
-	output="I want to discover "$@",\n"
-	output+="a country I'm unfamiliar with. \n"
+	output+="I want to discover "$@",\n"
+	output+="a place I'm unfamiliar with. \n"
 	output+="Provide an overview of this country, \n"
 	output+="including, but not limited to, the following: \n"
 	output+="1. Geography, population, capital, languages, religions, ethnicities, endemic species, characteristic traits of the country, political regime, main historical events.\n"
@@ -415,13 +384,11 @@ case "$command" in
 	# output+="one page about geography, population, capital etc.\n"
 	# output+="one page about culture, traditions, festivals etc.\n"
 	# output+="and so on for the rest.\n"
-	output+="\n"	
-	output+="write as $role, $styleandtone.\n"
 	;;
 
     wikipedia)
 	shift 1 # get rid of wikipedia
-	output="Task\n\n    $output"
+	output+="Task\n\n    $output"
 	output+="    with an expertise in clear and accessible writing.\n"	
 	output+="    Rewrite the following Wikipedia article [$@] by simplifying it\n" 
 	output+="    and making it more readable for a general audience\n"
@@ -477,7 +444,6 @@ case "$command" in
 
 
     coauthor)
-	output+="speaking in $tone tone and $style style.\n"		
 	output+="You are hired as an expert co-writer\n"
 	output+="specializing in explanatory, step-by-step narratives\n"
 	output+="on any topic the user introduces\n"
@@ -502,7 +468,6 @@ case "$command" in
 	;;
 
     music-genre)
-	output+="$styleandtone.\n"
 	output+="I am going to give you a series of music genres.\n"
 	output+="For each one of them,\n"
 	output+="give a brief history of its evolution\n"
@@ -528,7 +493,6 @@ case "$command" in
 	;;
 
     challenge)
-	output+="$styleandtone.\n"
 	output+="I want you to challenge the previous claims,\n"
 	output+="offering a different, counter-perspective,\n"
 	output+="drawing parallels from your own experience.\n"
@@ -538,7 +502,6 @@ case "$command" in
 
 
     deconstruct)
-	output+="$styleandtone.\n"
 	output+="I want you to deconstruct the previous claims,\n"
 	output+="by spotting false or poor presumptions,\n"
 	output+="logical fallacies and flaws,\n"
@@ -744,7 +707,6 @@ EOF
 	;;
 
     chat)
-	output+="$styleandtone\n"
 	output+=$(cat <<"EOF"
 Réponds comme dans une conversation orale naturelle : 
 avec des phrases courtes, 
