@@ -320,9 +320,6 @@ case "$command" in
 	output+="until I get the picture."
 	;;
 
-    character)
-	output+="speaking in $tone tone and $style style."	
-	;;
     teach)
 	output+="and drawing parallels from your own experience or life,\n"
 	output+="where applicable.\n"	
@@ -721,9 +718,7 @@ EOF
 	)
 	output+="\n"
 	;;
-    *)
-	output+="Write $texttype in which you $@,\n $styleandtone\n"
-	;;
+
 esac
 
 
