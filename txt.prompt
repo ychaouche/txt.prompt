@@ -719,6 +719,9 @@ EOF
 	output+="\n"
 	;;
 
+    *)
+	output+="$*"
+	;;
 esac
 
 
